@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { AddStudent } from "@/components/AddStudent"; // make sure this exists
+import { AddStudent } from "@/components/AddStudent";
 
 interface Student {
-  id?: number;
+  id: number;
   name: string;
   age: number;
   grade: string;
@@ -12,20 +12,16 @@ interface Student {
 const AddStudentPage: React.FC = () => {
   const [students, setStudents] = useState<Student[]>([]);
 
-  const handleAddStudent = (student: Student) => {
+  const handleAddStudent = (student: Omit<Student, "id">) => {
     const newStudent = { ...student, id: Date.now() };
     setStudents((prev) => [...prev, newStudent]);
-    alert("Student added successfully!"); // You can replace this with Toaster/Sonner
+    alert("Student added successfully!");
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
-      <h1 className="text-3xl font-bold text-blue-900 mb-6">Add New Student</h1>
-      
-      {/* AddStudent Form */}
       <AddStudent onAddStudent={handleAddStudent} />
 
-      {/* Student List */}
       <div className="mt-8 w-full max-w-3xl">
         <h2 className="text-2xl font-bold mb-4 text-blue-900">Student List</h2>
         {students.length === 0 ? (
@@ -34,9 +30,7 @@ const AddStudentPage: React.FC = () => {
           <ul className="space-y-2">
             {students.map((s) => (
               <li key={s.id} className="bg-white p-4 rounded shadow flex justify-between">
-                <span>
-                  {s.name} ({s.grade}, Age {s.age})
-                </span>
+                <span>{s.name} ({s.grade}, Age {s.age})</span>
                 <span>{s.email}</span>
               </li>
             ))}
