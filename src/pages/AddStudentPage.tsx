@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AddStudent } from "@/components/AddStudent";
+import { AddStudent } from "@/components/AddStudent"; // make sure this exists
 
 interface Student {
   id?: number;
@@ -15,24 +15,33 @@ const AddStudentPage: React.FC = () => {
   const handleAddStudent = (student: Student) => {
     const newStudent = { ...student, id: Date.now() };
     setStudents((prev) => [...prev, newStudent]);
-    alert("Student added successfully!"); // You can replace this with Toaster later
+    alert("Student added successfully!"); // You can replace this with Toaster/Sonner
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+      <h1 className="text-3xl font-bold text-blue-900 mb-6">Add New Student</h1>
+      
+      {/* AddStudent Form */}
       <AddStudent onAddStudent={handleAddStudent} />
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">Student List</h2>
-        <ul className="space-y-2">
-          {students.map((s) => (
-            <li key={s.id} className="bg-white p-4 rounded shadow flex justify-between">
-              <span>
-                {s.name} ({s.grade}, Age {s.age})
-              </span>
-              <span>{s.email}</span>
-            </li>
-          ))}
-        </ul>
+
+      {/* Student List */}
+      <div className="mt-8 w-full max-w-3xl">
+        <h2 className="text-2xl font-bold mb-4 text-blue-900">Student List</h2>
+        {students.length === 0 ? (
+          <p className="text-gray-600">No students added yet.</p>
+        ) : (
+          <ul className="space-y-2">
+            {students.map((s) => (
+              <li key={s.id} className="bg-white p-4 rounded shadow flex justify-between">
+                <span>
+                  {s.name} ({s.grade}, Age {s.age})
+                </span>
+                <span>{s.email}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
