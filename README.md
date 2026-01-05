@@ -24,7 +24,6 @@ Check out the live demo here: [dulcet-liger-a451ac.netlify.app](https://dulcet-l
 - **Package Manager:** npm
 
 ## Installation
-
 1. Clone the repository:
 ```bash
 git clone https://github.com/hesbonangwenyi606/school-management-system.git
