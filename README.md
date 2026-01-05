@@ -42,3 +42,17 @@ Run the development server:
 
 npm run dev
 Open your browser at http://localhost:5173
+
+Project Structure
+school-management-system/
+│
+├── public/                  # Static assets
+├── src/                     # Source files
+│   ├── components/          # Reusable React components
+│   ├── pages/               # Page components
+│   ├── App.tsx              # Main App component
+│   └── main.tsx             # Entry point
+├── package.json             # Project metadata and dependencies
+├── tsconfig.json            # TypeScript configuration
+├── tailwind.config.ts       # Tailwind CSS configuration
+└── vite.config.ts           # Vite configuration
