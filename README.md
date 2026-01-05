@@ -41,3 +41,4 @@ npm install
 Run the development server:
 
 npm run dev
+Open your browser at http://localhost:5173
