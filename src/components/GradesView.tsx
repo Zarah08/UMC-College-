@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 type GradeInfo = { grade: string; count: number; percentage: number };
 type PerformanceInfo = { avgGPA: number; highestScore: number; passRate: number };
+type Assessment = { name: string; date: string; type: string; score: string };
 
 export const GradesView: React.FC = () => {
   const [selectedGrade, setSelectedGrade] = useState('Grade 9');
@@ -15,7 +16,7 @@ export const GradesView: React.FC = () => {
 
   const grades = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
 
-  // Example: Generate some random distribution for demonstration
+  // Generate random distribution for demo
   const generateDistribution = (): GradeInfo[] => {
     const counts = Array.from({ length: grades.length }, () => Math.floor(Math.random() * 15 + 5));
     const total = counts.reduce((a, b) => a + b, 0);
@@ -26,15 +27,22 @@ export const GradesView: React.FC = () => {
     }));
   };
 
-  // Example: Random performance
+  // Generate random performance
   const generatePerformance = (): PerformanceInfo => ({
-    avgGPA: +(2 + Math.random() * 2).toFixed(2), // 2.0–4.0
-    highestScore: Math.floor(80 + Math.random() * 20), // 80–100
-    passRate: Math.floor(75 + Math.random() * 25), // 75–100%
+    avgGPA: +(2 + Math.random() * 2).toFixed(2),
+    highestScore: Math.floor(80 + Math.random() * 20),
+    passRate: Math.floor(75 + Math.random() * 25),
   });
 
+  // Generate random assessments
+  const generateAssessments = (): Assessment[] => [
+    { name: 'Midterm Exam', date: 'Nov 10, 2025', type: 'Exam', score: `${Math.floor(70 + Math.random() * 30)}%` },
+    { name: 'Chapter Quiz', date: 'Nov 5, 2025', type: 'Quiz', score: `${Math.floor(60 + Math.random() * 40)}%` },
+    { name: 'Lab Report', date: 'Oct 28, 2025', type: 'Assignment', score: `${Math.floor(65 + Math.random() * 35)}%` }
+  ];
+
   // Full dataset: Grades 9–12, all subjects
-  const gradeData: Record<string, Record<string, { distribution: GradeInfo[]; performance: PerformanceInfo }>> = {};
+  const gradeData: Record<string, Record<string, { distribution: GradeInfo[]; performance: PerformanceInfo; assessments: Assessment[] }>> = {};
 
   ['Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'].forEach((gradeLevel) => {
     gradeData[gradeLevel] = {};
@@ -42,14 +50,16 @@ export const GradesView: React.FC = () => {
       gradeData[gradeLevel][subject] = {
         distribution: generateDistribution(),
         performance: generatePerformance(),
+        assessments: generateAssessments(),
       };
     });
   });
 
-  // Get current subject data
+  // Current data
   const currentData = gradeData[selectedGrade]?.[selectedSubject];
   const gradeDistribution = currentData?.distribution || [];
   const performance = currentData?.performance || { avgGPA: 0, highestScore: 0, passRate: 0 };
+  const assessments = currentData?.assessments || [];
 
   return (
     <div className="space-y-6">
@@ -85,8 +95,9 @@ export const GradesView: React.FC = () => {
         </div>
       </div>
 
-      {/* Grade Distribution */}
+      {/* Grade Distribution & Class Performance */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Grade Distribution */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold mb-4">Grade Distribution</h3>
           <div className="space-y-4">
@@ -129,6 +140,42 @@ export const GradesView: React.FC = () => {
               <div className="text-3xl font-bold text-orange-700">{performance.passRate}%</div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Recent Assessments */}
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-xl font-semibold">Recent Assessments</h3>
+          <button className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">
+            Add Assessment
+          </button>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-4 py-3 text-left text-sm font-semibold">Assessment</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold">Date</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold">Type</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold">Avg Score</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y">
+              {assessments.map((assessment, i) => (
+                <tr key={i} className="hover:bg-gray-50">
+                  <td className="px-4 py-3">{assessment.name}</td>
+                  <td className="px-4 py-3 text-gray-600">{assessment.date}</td>
+                  <td className="px-4 py-3">
+                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
+                      {assessment.type}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 font-semibold">{assessment.score}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
