@@ -16,7 +16,6 @@ export const GradesView: React.FC = () => {
 
   const grades = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
 
-  // Generate random distribution
   const generateDistribution = (): GradeInfo[] => {
     const counts = Array.from({ length: grades.length }, () => Math.floor(Math.random() * 15 + 5));
     const total = counts.reduce((a, b) => a + b, 0);
@@ -27,21 +26,18 @@ export const GradesView: React.FC = () => {
     }));
   };
 
-  // Generate random performance
   const generatePerformance = (): PerformanceInfo => ({
     avgGPA: +(2 + Math.random() * 2).toFixed(2),
     highestScore: Math.floor(80 + Math.random() * 20),
     passRate: Math.floor(75 + Math.random() * 25),
   });
 
-  // Generate random assessments
   const generateAssessments = (): Assessment[] => [
     { name: 'Midterm Exam', date: 'Nov 10, 2025', type: 'Exam', score: `${Math.floor(70 + Math.random() * 30)}%` },
     { name: 'Chapter Quiz', date: 'Nov 5, 2025', type: 'Quiz', score: `${Math.floor(60 + Math.random() * 40)}%` },
     { name: 'Lab Report', date: 'Oct 28, 2025', type: 'Assignment', score: `${Math.floor(65 + Math.random() * 35)}%` }
   ];
 
-  // Initialize gradeData in state
   const [gradeData, setGradeData] = useState(() => {
     const data: Record<string, Record<string, { distribution: GradeInfo[]; performance: PerformanceInfo; assessments: Assessment[] }>> = {};
     ['Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'].forEach((gradeLevel) => {
@@ -57,22 +53,22 @@ export const GradesView: React.FC = () => {
     return data;
   });
 
-  // Current selected data
   const currentData = gradeData[selectedGrade]?.[selectedSubject];
   const gradeDistribution = currentData?.distribution || [];
   const performance = currentData?.performance || { avgGPA: 0, highestScore: 0, passRate: 0 };
   const assessments = currentData?.assessments || [];
 
-  // Function to add a new assessment
+  // Add new assessment
   const handleAddAssessment = () => {
-    const newAssessment: Assessment = {
-      name: 'New Assignment',
-      date: new Date().toLocaleDateString(),
-      type: 'Assignment',
-      score: `${Math.floor(60 + Math.random() * 40)}%`
-    };
+    const name = prompt('Enter assessment name', 'New Assignment');
+    if (!name) return;
 
-    // Update gradeData immutably
+    const type = prompt('Enter assessment type', 'Assignment') || 'Assignment';
+    const score = prompt('Enter score (%)', `${Math.floor(60 + Math.random() * 40)}`) || '0%';
+    const date = new Date().toLocaleDateString();
+
+    const newAssessment: Assessment = { name, type, score, date };
+
     setGradeData(prev => ({
       ...prev,
       [selectedGrade]: {
@@ -83,6 +79,50 @@ export const GradesView: React.FC = () => {
         }
       }
     }));
+  };
+
+  // Delete assessment
+  const handleDeleteAssessment = (index: number) => {
+    setGradeData(prev => {
+      const newAssessments = [...prev[selectedGrade][selectedSubject].assessments];
+      newAssessments.splice(index, 1);
+      return {
+        ...prev,
+        [selectedGrade]: {
+          ...prev[selectedGrade],
+          [selectedSubject]: {
+            ...prev[selectedGrade][selectedSubject],
+            assessments: newAssessments
+          }
+        }
+      };
+    });
+  };
+
+  // Edit assessment
+  const handleEditAssessment = (index: number) => {
+    const current = gradeData[selectedGrade][selectedSubject].assessments[index];
+    const name = prompt('Edit name', current.name) || current.name;
+    const type = prompt('Edit type', current.type) || current.type;
+    const score = prompt('Edit score', current.score) || current.score;
+    const date = prompt('Edit date', current.date) || current.date;
+
+    const edited: Assessment = { name, type, score, date };
+
+    setGradeData(prev => {
+      const newAssessments = [...prev[selectedGrade][selectedSubject].assessments];
+      newAssessments[index] = edited;
+      return {
+        ...prev,
+        [selectedGrade]: {
+          ...prev[selectedGrade],
+          [selectedSubject]: {
+            ...prev[selectedGrade][selectedSubject],
+            assessments: newAssessments
+          }
+        }
+      };
+    });
   };
 
   return (
@@ -99,9 +139,7 @@ export const GradesView: React.FC = () => {
               onChange={(e) => setSelectedGrade(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
             >
-              {['Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'].map((g) => (
-                <option key={g}>{g}</option>
-              ))}
+              {['Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'].map(g => <option key={g}>{g}</option>)}
             </select>
           </div>
           <div>
@@ -111,21 +149,18 @@ export const GradesView: React.FC = () => {
               onChange={(e) => setSelectedSubject(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
             >
-              {subjects.map((subject) => (
-                <option key={subject}>{subject}</option>
-              ))}
+              {subjects.map(subject => <option key={subject}>{subject}</option>)}
             </select>
           </div>
         </div>
       </div>
 
-      {/* Grade Distribution & Class Performance */}
+      {/* Grade Distribution & Performance */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Grade Distribution */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold mb-4">Grade Distribution</h3>
           <div className="space-y-4">
-            {gradeDistribution.map((item) => (
+            {gradeDistribution.map(item => (
               <div key={item.grade}>
                 <div className="flex justify-between mb-1">
                   <span className="font-semibold">Grade {item.grade}</span>
@@ -147,7 +182,6 @@ export const GradesView: React.FC = () => {
           </div>
         </div>
 
-        {/* Class Performance */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold mb-4">Class Performance</h3>
           <div className="space-y-4">
@@ -186,6 +220,7 @@ export const GradesView: React.FC = () => {
                 <th className="px-4 py-3 text-left text-sm font-semibold">Date</th>
                 <th className="px-4 py-3 text-left text-sm font-semibold">Type</th>
                 <th className="px-4 py-3 text-left text-sm font-semibold">Avg Score</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -199,6 +234,20 @@ export const GradesView: React.FC = () => {
                     </span>
                   </td>
                   <td className="px-4 py-3 font-semibold">{assessment.score}</td>
+                  <td className="px-4 py-3 space-x-2">
+                    <button
+                      onClick={() => handleEditAssessment(i)}
+                      className="bg-yellow-400 text-white px-2 py-1 rounded hover:bg-yellow-500"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDeleteAssessment(i)}
+                      className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
