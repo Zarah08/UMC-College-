@@ -7,270 +7,46 @@ export const GradesView: React.FC = () => {
   const [selectedGrade, setSelectedGrade] = useState('Grade 9');
   const [selectedSubject, setSelectedSubject] = useState('Mathematics');
 
-  const subjects = ['Mathematics', 'English', 'Physics', 'Chemistry', 'Biology', 'History'];
+  const subjects = [
+    'Mathematics', 'English', 'Kiswahili', 'Physics', 'Chemistry',
+    'Biology', 'History', 'CRE', 'Geography', 'Computer Studies',
+    'Business', 'Agriculture', 'French'
+  ];
 
-  // Complete grade data for all grades and subjects
-  const gradeData: Record<
-    string,
-    Record<
-      string,
-      {
-        distribution: GradeInfo[];
-        performance: PerformanceInfo;
-      }
-    >
-  > = {
-    'Grade 9': {
-      Mathematics: {
-        distribution: [
-          { grade: 'A', count: 20, percentage: 25 },
-          { grade: 'B', count: 30, percentage: 37.5 },
-          { grade: 'C', count: 15, percentage: 18.75 },
-          { grade: 'D', count: 10, percentage: 12.5 },
-          { grade: 'F', count: 5, percentage: 6.25 },
-        ],
-        performance: { avgGPA: 3.2, highestScore: 95, passRate: 90 },
-      },
-      English: {
-        distribution: [
-          { grade: 'A', count: 25, percentage: 31 },
-          { grade: 'B', count: 35, percentage: 44 },
-          { grade: 'C', count: 10, percentage: 12 },
-          { grade: 'D', count: 5, percentage: 6 },
-          { grade: 'F', count: 5, percentage: 6 },
-        ],
-        performance: { avgGPA: 3.5, highestScore: 98, passRate: 95 },
-      },
-      Physics: {
-        distribution: [
-          { grade: 'A', count: 10, percentage: 20 },
-          { grade: 'B', count: 20, percentage: 40 },
-          { grade: 'C', count: 10, percentage: 20 },
-          { grade: 'D', count: 5, percentage: 10 },
-          { grade: 'F', count: 5, percentage: 10 },
-        ],
-        performance: { avgGPA: 2.9, highestScore: 88, passRate: 85 },
-      },
-      Chemistry: {
-        distribution: [
-          { grade: 'A', count: 12, percentage: 20 },
-          { grade: 'B', count: 25, percentage: 41.6 },
-          { grade: 'C', count: 10, percentage: 16.6 },
-          { grade: 'D', count: 5, percentage: 8.3 },
-          { grade: 'F', count: 5, percentage: 8.3 },
-        ],
-        performance: { avgGPA: 3.1, highestScore: 93, passRate: 88 },
-      },
-      Biology: {
-        distribution: [
-          { grade: 'A', count: 15, percentage: 25 },
-          { grade: 'B', count: 20, percentage: 33.3 },
-          { grade: 'C', count: 10, percentage: 16.6 },
-          { grade: 'D', count: 5, percentage: 8.3 },
-          { grade: 'F', count: 5, percentage: 16.6 },
-        ],
-        performance: { avgGPA: 3.2, highestScore: 96, passRate: 90 },
-      },
-      History: {
-        distribution: [
-          { grade: 'A', count: 18, percentage: 30 },
-          { grade: 'B', count: 25, percentage: 41 },
-          { grade: 'C', count: 10, percentage: 16 },
-          { grade: 'D', count: 5, percentage: 8 },
-          { grade: 'F', count: 2, percentage: 5 },
-        ],
-        performance: { avgGPA: 3.4, highestScore: 97, passRate: 92 },
-      },
-    },
-    'Grade 10': {
-      Mathematics: {
-        distribution: [
-          { grade: 'A', count: 15, percentage: 20 },
-          { grade: 'B', count: 40, percentage: 53 },
-          { grade: 'C', count: 10, percentage: 13 },
-          { grade: 'D', count: 5, percentage: 7 },
-          { grade: 'F', count: 1, percentage: 7 },
-        ],
-        performance: { avgGPA: 3.1, highestScore: 92, passRate: 88 },
-      },
-      English: {
-        distribution: [
-          { grade: 'A', count: 20, percentage: 25 },
-          { grade: 'B', count: 35, percentage: 44 },
-          { grade: 'C', count: 10, percentage: 13 },
-          { grade: 'D', count: 5, percentage: 7 },
-          { grade: 'F', count: 5, percentage: 11 },
-        ],
-        performance: { avgGPA: 3.4, highestScore: 96, passRate: 92 },
-      },
-      Physics: {
-        distribution: [
-          { grade: 'A', count: 12, percentage: 20 },
-          { grade: 'B', count: 28, percentage: 46.6 },
-          { grade: 'C', count: 8, percentage: 13.3 },
-          { grade: 'D', count: 4, percentage: 6.6 },
-          { grade: 'F', count: 3, percentage: 5.5 },
-        ],
-        performance: { avgGPA: 3.0, highestScore: 90, passRate: 87 },
-      },
-      Chemistry: {
-        distribution: [
-          { grade: 'A', count: 10, percentage: 16 },
-          { grade: 'B', count: 25, percentage: 41.6 },
-          { grade: 'C', count: 10, percentage: 16.6 },
-          { grade: 'D', count: 5, percentage: 8.3 },
-          { grade: 'F', count: 5, percentage: 18 },
-        ],
-        performance: { avgGPA: 3.1, highestScore: 92, passRate: 88 },
-      },
-      Biology: {
-        distribution: [
-          { grade: 'A', count: 15, percentage: 25 },
-          { grade: 'B', count: 20, percentage: 33.3 },
-          { grade: 'C', count: 10, percentage: 16.6 },
-          { grade: 'D', count: 5, percentage: 8.3 },
-          { grade: 'F', count: 5, percentage: 16.6 },
-        ],
-        performance: { avgGPA: 3.2, highestScore: 96, passRate: 90 },
-      },
-      History: {
-        distribution: [
-          { grade: 'A', count: 12, percentage: 20 },
-          { grade: 'B', count: 30, percentage: 50 },
-          { grade: 'C', count: 10, percentage: 16.6 },
-          { grade: 'D', count: 3, percentage: 5 },
-          { grade: 'F', count: 0, percentage: 8.3 },
-        ],
-        performance: { avgGPA: 3.3, highestScore: 94, passRate: 91 },
-      },
-    },
-    'Grade 11': {
-      Mathematics: {
-        distribution: [
-          { grade: 'A', count: 18, percentage: 28 },
-          { grade: 'B', count: 25, percentage: 39 },
-          { grade: 'C', count: 10, percentage: 15 },
-          { grade: 'D', count: 5, percentage: 10 },
-          { grade: 'F', count: 3, percentage: 8 },
-        ],
-        performance: { avgGPA: 3.3, highestScore: 94, passRate: 91 },
-      },
-      English: {
-        distribution: [
-          { grade: 'A', count: 20, percentage: 30 },
-          { grade: 'B', count: 28, percentage: 42 },
-          { grade: 'C', count: 8, percentage: 12 },
-          { grade: 'D', count: 4, percentage: 6 },
-          { grade: 'F', count: 5, percentage: 10 },
-        ],
-        performance: { avgGPA: 3.5, highestScore: 97, passRate: 94 },
-      },
-      Physics: {
-        distribution: [
-          { grade: 'A', count: 15, percentage: 25 },
-          { grade: 'B', count: 25, percentage: 41.6 },
-          { grade: 'C', count: 8, percentage: 13 },
-          { grade: 'D', count: 5, percentage: 8 },
-          { grade: 'F', count: 2, percentage: 4.4 },
-        ],
-        performance: { avgGPA: 3.2, highestScore: 93, passRate: 90 },
-      },
-      Chemistry: {
-        distribution: [
-          { grade: 'A', count: 12, percentage: 20 },
-          { grade: 'B', count: 28, percentage: 46.6 },
-          { grade: 'C', count: 8, percentage: 13 },
-          { grade: 'D', count: 4, percentage: 6 },
-          { grade: 'F', count: 3, percentage: 7 },
-        ],
-        performance: { avgGPA: 3.1, highestScore: 92, passRate: 88 },
-      },
-      Biology: {
-        distribution: [
-          { grade: 'A', count: 14, percentage: 23 },
-          { grade: 'B', count: 25, percentage: 41 },
-          { grade: 'C', count: 8, percentage: 13 },
-          { grade: 'D', count: 5, percentage: 8 },
-          { grade: 'F', count: 3, percentage: 7 },
-        ],
-        performance: { avgGPA: 3.2, highestScore: 94, passRate: 90 },
-      },
-      History: {
-        distribution: [
-          { grade: 'A', count: 18, percentage: 30 },
-          { grade: 'B', count: 20, percentage: 33 },
-          { grade: 'C', count: 10, percentage: 16 },
-          { grade: 'D', count: 5, percentage: 8 },
-          { grade: 'F', count: 5, percentage: 13 },
-        ],
-        performance: { avgGPA: 3.3, highestScore: 95, passRate: 92 },
-      },
-    },
-    'Grade 12': {
-      Mathematics: {
-        distribution: [
-          { grade: 'A', count: 25, percentage: 35 },
-          { grade: 'B', count: 30, percentage: 40 },
-          { grade: 'C', count: 10, percentage: 15 },
-          { grade: 'D', count: 5, percentage: 7 },
-          { grade: 'F', count: 2, percentage: 3 },
-        ],
-        performance: { avgGPA: 3.4, highestScore: 97, passRate: 93 },
-      },
-      English: {
-        distribution: [
-          { grade: 'A', count: 22, percentage: 34 },
-          { grade: 'B', count: 28, percentage: 43 },
-          { grade: 'C', count: 8, percentage: 12 },
-          { grade: 'D', count: 4, percentage: 6 },
-          { grade: 'F', count: 3, percentage: 5 },
-        ],
-        performance: { avgGPA: 3.5, highestScore: 98, passRate: 95 },
-      },
-      Physics: {
-        distribution: [
-          { grade: 'A', count: 18, percentage: 30 },
-          { grade: 'B', count: 25, percentage: 42 },
-          { grade: 'C', count: 10, percentage: 16 },
-          { grade: 'D', count: 5, percentage: 8 },
-          { grade: 'F', count: 2, percentage: 4 },
-        ],
-        performance: { avgGPA: 3.3, highestScore: 96, passRate: 92 },
-      },
-      Chemistry: {
-        distribution: [
-          { grade: 'A', count: 20, percentage: 33 },
-          { grade: 'B', count: 25, percentage: 41 },
-          { grade: 'C', count: 10, percentage: 16 },
-          { grade: 'D', count: 4, percentage: 6 },
-          { grade: 'F', count: 2, percentage: 4 },
-        ],
-        performance: { avgGPA: 3.3, highestScore: 95, passRate: 91 },
-      },
-      Biology: {
-        distribution: [
-          { grade: 'A', count: 18, percentage: 30 },
-          { grade: 'B', count: 25, percentage: 41 },
-          { grade: 'C', count: 8, percentage: 13 },
-          { grade: 'D', count: 4, percentage: 6 },
-          { grade: 'F', count: 2, percentage: 4 },
-        ],
-        performance: { avgGPA: 3.2, highestScore: 94, passRate: 90 },
-      },
-      History: {
-        distribution: [
-          { grade: 'A', count: 20, percentage: 33 },
-          { grade: 'B', count: 25, percentage: 41 },
-          { grade: 'C', count: 8, percentage: 13 },
-          { grade: 'D', count: 3, percentage: 5 },
-          { grade: 'F', count: 2, percentage: 4 },
-        ],
-        performance: { avgGPA: 3.4, highestScore: 96, passRate: 93 },
-      },
-    },
+  const grades = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
+
+  // Example: Generate some random distribution for demonstration
+  const generateDistribution = (): GradeInfo[] => {
+    const counts = Array.from({ length: grades.length }, () => Math.floor(Math.random() * 15 + 5));
+    const total = counts.reduce((a, b) => a + b, 0);
+    return grades.map((grade, i) => ({
+      grade,
+      count: counts[i],
+      percentage: Math.round((counts[i] / total) * 100),
+    }));
   };
 
-  // Safe access
+  // Example: Random performance
+  const generatePerformance = (): PerformanceInfo => ({
+    avgGPA: +(2 + Math.random() * 2).toFixed(2), // 2.0–4.0
+    highestScore: Math.floor(80 + Math.random() * 20), // 80–100
+    passRate: Math.floor(75 + Math.random() * 25), // 75–100%
+  });
+
+  // Full dataset: Grades 9–12, all subjects
+  const gradeData: Record<string, Record<string, { distribution: GradeInfo[]; performance: PerformanceInfo }>> = {};
+
+  ['Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'].forEach((gradeLevel) => {
+    gradeData[gradeLevel] = {};
+    subjects.forEach((subject) => {
+      gradeData[gradeLevel][subject] = {
+        distribution: generateDistribution(),
+        performance: generatePerformance(),
+      };
+    });
+  });
+
+  // Get current subject data
   const currentData = gradeData[selectedGrade]?.[selectedSubject];
   const gradeDistribution = currentData?.distribution || [];
   const performance = currentData?.performance || { avgGPA: 0, highestScore: 0, passRate: 0 };
@@ -279,7 +55,7 @@ export const GradesView: React.FC = () => {
     <div className="space-y-6">
       <h2 className="text-3xl font-bold text-gray-900">Grade Management</h2>
 
-      {/* Grade & Subject Selector */}
+      {/* Select Grade & Subject */}
       <div className="bg-white rounded-lg shadow-md p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -323,15 +99,10 @@ export const GradesView: React.FC = () => {
                 <div className="w-full bg-gray-200 rounded-full h-3">
                   <div
                     className={`h-3 rounded-full ${
-                      item.grade === 'A'
-                        ? 'bg-green-500'
-                        : item.grade === 'B'
-                        ? 'bg-blue-500'
-                        : item.grade === 'C'
-                        ? 'bg-yellow-500'
-                        : item.grade === 'D'
-                        ? 'bg-orange-500'
-                        : 'bg-red-500'
+                      item.grade.startsWith('A') ? 'bg-green-500' :
+                      item.grade.startsWith('B') ? 'bg-blue-500' :
+                      item.grade.startsWith('C') ? 'bg-yellow-500' :
+                      item.grade.startsWith('D') ? 'bg-orange-500' : 'bg-red-500'
                     }`}
                     style={{ width: `${item.percentage * 2}%` }}
                   />
