@@ -9,7 +9,6 @@ export const GradesView: React.FC = () => {
 
   const subjects = ['Mathematics', 'English', 'Physics', 'Chemistry', 'Biology', 'History'];
 
-  // Grade distributions and performance data
   const gradeData: Record<
     string,
     Record<
@@ -41,17 +40,7 @@ export const GradesView: React.FC = () => {
         ],
         performance: { avgGPA: 3.5, highestScore: 98, passRate: 95 },
       },
-      Physics: {
-        distribution: [
-          { grade: 'A', count: 10, percentage: 20 },
-          { grade: 'B', count: 20, percentage: 40 },
-          { grade: 'C', count: 10, percentage: 20 },
-          { grade: 'D', count: 5, percentage: 10 },
-          { grade: 'F', count: 5, percentage: 10 },
-        ],
-        performance: { avgGPA: 2.9, highestScore: 88, passRate: 85 },
-      },
-      // ...other subjects
+      // Other subjects can be added here...
     },
     'Grade 10': {
       Mathematics: {
@@ -74,12 +63,11 @@ export const GradesView: React.FC = () => {
         ],
         performance: { avgGPA: 3.4, highestScore: 96, passRate: 92 },
       },
-      // ...other subjects
     },
-    // ...Grade 11 and 12 similarly
+    // Grades 11 & 12 can be added later...
   };
 
-  // Current data based on selected grade and subject
+  // Safe access with defaults
   const currentData = gradeData[selectedGrade]?.[selectedSubject];
   const gradeDistribution = currentData?.distribution || [];
   const performance = currentData?.performance || { avgGPA: 0, highestScore: 0, passRate: 0 };
@@ -88,6 +76,7 @@ export const GradesView: React.FC = () => {
     <div className="space-y-6">
       <h2 className="text-3xl font-bold text-gray-900">Grade Management</h2>
 
+      {/* Select Grade & Subject */}
       <div className="bg-white rounded-lg shadow-md p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -97,10 +86,9 @@ export const GradesView: React.FC = () => {
               onChange={(e) => setSelectedGrade(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
             >
-              <option>Grade 9</option>
-              <option>Grade 10</option>
-              <option>Grade 11</option>
-              <option>Grade 12</option>
+              {['Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'].map((g) => (
+                <option key={g}>{g}</option>
+              ))}
             </select>
           </div>
           <div>
@@ -118,37 +106,43 @@ export const GradesView: React.FC = () => {
         </div>
       </div>
 
+      {/* Grade Distribution */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold mb-4">Grade Distribution</h3>
           <div className="space-y-4">
-            {gradeDistribution.map((item) => (
-              <div key={item.grade}>
-                <div className="flex justify-between mb-1">
-                  <span className="font-semibold">Grade {item.grade}</span>
-                  <span className="text-gray-600">{item.count} students ({item.percentage}%)</span>
+            {gradeDistribution.length > 0 ? (
+              gradeDistribution.map((item) => (
+                <div key={item.grade}>
+                  <div className="flex justify-between mb-1">
+                    <span className="font-semibold">Grade {item.grade}</span>
+                    <span className="text-gray-600">{item.count} students ({item.percentage}%)</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-3">
+                    <div
+                      className={`h-3 rounded-full ${
+                        item.grade === 'A'
+                          ? 'bg-green-500'
+                          : item.grade === 'B'
+                          ? 'bg-blue-500'
+                          : item.grade === 'C'
+                          ? 'bg-yellow-500'
+                          : item.grade === 'D'
+                          ? 'bg-orange-500'
+                          : 'bg-red-500'
+                      }`}
+                      style={{ width: `${item.percentage * 2}%` }}
+                    />
+                  </div>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-3">
-                  <div
-                    className={`h-3 rounded-full ${
-                      item.grade === 'A'
-                        ? 'bg-green-500'
-                        : item.grade === 'B'
-                        ? 'bg-blue-500'
-                        : item.grade === 'C'
-                        ? 'bg-yellow-500'
-                        : item.grade === 'D'
-                        ? 'bg-orange-500'
-                        : 'bg-red-500'
-                    }`}
-                    style={{ width: `${item.percentage * 2}%` }}
-                  />
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-gray-500">No data available for this subject.</p>
+            )}
           </div>
         </div>
 
+        {/* Class Performance */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold mb-4">Class Performance</h3>
           <div className="space-y-4">
@@ -165,46 +159,6 @@ export const GradesView: React.FC = () => {
               <div className="text-3xl font-bold text-orange-700">{performance.passRate}%</div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Recent Assessments */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-semibold">Recent Assessments</h3>
-          <button className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">
-            Add Assessment
-          </button>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-4 py-3 text-left text-sm font-semibold">Assessment</th>
-                <th className="px-4 py-3 text-left text-sm font-semibold">Date</th>
-                <th className="px-4 py-3 text-left text-sm font-semibold">Type</th>
-                <th className="px-4 py-3 text-left text-sm font-semibold">Avg Score</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              {[
-                { name: 'Midterm Exam', date: 'Nov 10, 2025', type: 'Exam', score: '85%' },
-                { name: 'Chapter 5 Quiz', date: 'Nov 5, 2025', type: 'Quiz', score: '78%' },
-                { name: 'Lab Report', date: 'Oct 28, 2025', type: 'Assignment', score: '92%' },
-              ].map((assessment, i) => (
-                <tr key={i} className="hover:bg-gray-50">
-                  <td className="px-4 py-3">{assessment.name}</td>
-                  <td className="px-4 py-3 text-gray-600">{assessment.date}</td>
-                  <td className="px-4 py-3">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
-                      {assessment.type}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 font-semibold">{assessment.score}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
       </div>
     </div>
