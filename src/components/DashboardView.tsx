@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // For internal navigation
+import { Link } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { motion } from 'framer-motion'; // Import Framer Motion
 
 // Reusable StatCard
 interface StatCardProps {
@@ -9,22 +10,27 @@ interface StatCardProps {
   trend?: string;
   bgColor: string;
   icon: React.ReactNode;
-  link?: string; // Optional link for navigation
+  link?: string;
 }
 
 const StatCard: React.FC<StatCardProps> = ({ title, value, trend, bgColor, icon, link }) => {
   const content = (
-    <div className={`flex items-center p-4 rounded-xl shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105 ${bgColor} text-white cursor-pointer`}>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      whileHover={{ scale: 1.05 }} 
+      transition={{ duration: 0.3 }}
+      className={`flex items-center p-4 rounded-xl shadow-lg ${bgColor} text-white cursor-pointer`}
+    >
       <div className="p-3 bg-white bg-opacity-20 rounded-full mr-4">{icon}</div>
       <div>
         <p className="text-sm font-medium">{title}</p>
         <p className="text-2xl font-bold">{value}</p>
         {trend && <p className="text-xs mt-1">{trend}</p>}
       </div>
-    </div>
+    </motion.div>
   );
 
-  // Wrap with Link if link exists
   return link ? <Link to={link}>{content}</Link> : content;
 };
 
@@ -51,7 +57,6 @@ export const DashboardView: React.FC = () => {
     { event: 'Science Fair', date: 'Jan 10, 2026', type: 'Event' },
   ];
 
-  // Filter state
   const [activityFilter, setActivityFilter] = useState<string>('All');
   const [eventFilter, setEventFilter] = useState<string>('All');
 
@@ -123,7 +128,7 @@ export const DashboardView: React.FC = () => {
       {/* Charts and Recent Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Attendance Chart */}
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }} className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold mb-4">Attendance Trend</h3>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={attendanceData}>
@@ -133,9 +138,9 @@ export const DashboardView: React.FC = () => {
               <Line type="monotone" dataKey="attendance" stroke="#4ade80" strokeWidth={3} />
             </LineChart>
           </ResponsiveContainer>
-        </div>
+        </motion.div>
 
-        {/* Recent Activity with filter */}
+        {/* Recent Activity */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold mb-4">Recent Activity</h3>
           <div className="flex gap-2 mb-3 flex-wrap">
@@ -143,7 +148,7 @@ export const DashboardView: React.FC = () => {
               <button
                 key={type}
                 onClick={() => setActivityFilter(type)}
-                className={`px-3 py-1 rounded-full text-sm font-medium ${
+                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors duration-300 ${
                   activityFilter === type
                     ? 'bg-blue-500 text-white'
                     : 'bg-gray-200 text-gray-700'
@@ -155,7 +160,13 @@ export const DashboardView: React.FC = () => {
           </div>
           <div className="space-y-3">
             {filteredActivity.map((item, i) => (
-              <div key={i} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
+              >
                 <div className={`w-3 h-3 rounded-full ${
                   item.type === 'success' ? 'bg-green-500' :
                   item.type === 'warning' ? 'bg-yellow-500' : 'bg-blue-500'
@@ -164,13 +175,13 @@ export const DashboardView: React.FC = () => {
                   <p className="text-sm font-medium">{item.action}</p>
                   <p className="text-xs text-gray-500">{item.time}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Upcoming Events with filter and badges */}
+      {/* Upcoming Events */}
       <div className="bg-white rounded-lg shadow-md p-6">
         <h3 className="text-xl font-semibold mb-4">Upcoming Events</h3>
         <div className="flex gap-2 mb-3 flex-wrap">
@@ -178,7 +189,7 @@ export const DashboardView: React.FC = () => {
             <button
               key={type}
               onClick={() => setEventFilter(type)}
-              className={`px-3 py-1 rounded-full text-sm font-medium ${
+              className={`px-3 py-1 rounded-full text-sm font-medium transition-colors duration-300 ${
                 eventFilter === type
                   ? 'bg-blue-500 text-white'
                   : 'bg-gray-200 text-gray-700'
@@ -190,7 +201,13 @@ export const DashboardView: React.FC = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {filteredEvents.map((item, i) => (
-            <div key={i} className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className="flex justify-between items-center p-3 bg-blue-50 rounded-lg"
+            >
               <div className="flex items-center gap-2">
                 <p className="font-medium">{item.event}</p>
                 <span className={`px-2 py-0.5 rounded text-xs font-semibold ${eventBadgeColor(item.type)}`}>
@@ -198,7 +215,7 @@ export const DashboardView: React.FC = () => {
                 </span>
               </div>
               <p className="text-sm text-gray-600">{item.date}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
