@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 // Reusable StatCard
@@ -10,18 +10,16 @@ interface StatCardProps {
   icon: React.ReactNode;
 }
 
-const StatCard: React.FC<StatCardProps> = ({ title, value, trend, bgColor, icon }) => {
-  return (
-    <div className={`flex items-center p-4 rounded-xl shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105 ${bgColor} text-white`}>
-      <div className="p-3 bg-white bg-opacity-20 rounded-full mr-4">{icon}</div>
-      <div>
-        <p className="text-sm font-medium">{title}</p>
-        <p className="text-2xl font-bold">{value}</p>
-        {trend && <p className="text-xs mt-1">{trend}</p>}
-      </div>
+const StatCard: React.FC<StatCardProps> = ({ title, value, trend, bgColor, icon }) => (
+  <div className={`flex items-center p-4 rounded-xl shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105 ${bgColor} text-white`}>
+    <div className="p-3 bg-white bg-opacity-20 rounded-full mr-4">{icon}</div>
+    <div>
+      <p className="text-sm font-medium">{title}</p>
+      <p className="text-2xl font-bold">{value}</p>
+      {trend && <p className="text-xs mt-1">{trend}</p>}
     </div>
-  );
-};
+  </div>
+);
 
 export const DashboardView: React.FC = () => {
   const attendanceData = [
@@ -32,21 +30,32 @@ export const DashboardView: React.FC = () => {
     { month: 'May', attendance: 96 },
   ];
 
-  const recentActivity = [
+  const allRecentActivity = [
     { action: 'New student enrolled', time: '2 hours ago', type: 'success' },
     { action: 'Grade report generated', time: '4 hours ago', type: 'info' },
     { action: 'Parent meeting scheduled', time: '1 day ago', type: 'warning' },
     { action: 'Attendance marked for Grade 10', time: '2 days ago', type: 'success' },
   ];
 
-  const upcomingEvents = [
+  const allUpcomingEvents = [
     { event: 'Parent-Teacher Conference', date: 'Nov 20, 2025', type: 'Meeting' },
     { event: 'Final Exams Begin', date: 'Dec 1, 2025', type: 'Exam' },
     { event: 'Winter Break', date: 'Dec 15, 2025', type: 'Holiday' },
     { event: 'Science Fair', date: 'Jan 10, 2026', type: 'Event' },
   ];
 
-  // Badge colors based on type
+  // Filter state
+  const [activityFilter, setActivityFilter] = useState<string>('All');
+  const [eventFilter, setEventFilter] = useState<string>('All');
+
+  const filteredActivity = activityFilter === 'All'
+    ? allRecentActivity
+    : allRecentActivity.filter(a => a.type === activityFilter);
+
+  const filteredEvents = eventFilter === 'All'
+    ? allUpcomingEvents
+    : allUpcomingEvents.filter(e => e.type === eventFilter);
+
   const eventBadgeColor = (type: string) => {
     switch (type) {
       case 'Exam':
@@ -119,11 +128,26 @@ export const DashboardView: React.FC = () => {
           </ResponsiveContainer>
         </div>
 
-        {/* Recent Activity */}
+        {/* Recent Activity with filter */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold mb-4">Recent Activity</h3>
+          <div className="flex gap-2 mb-3 flex-wrap">
+            {['All', 'success', 'warning', 'info'].map(type => (
+              <button
+                key={type}
+                onClick={() => setActivityFilter(type)}
+                className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  activityFilter === type
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-gray-200 text-gray-700'
+                }`}
+              >
+                {type.charAt(0).toUpperCase() + type.slice(1)}
+              </button>
+            ))}
+          </div>
           <div className="space-y-3">
-            {recentActivity.map((item, i) => (
+            {filteredActivity.map((item, i) => (
               <div key={i} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                 <div className={`w-3 h-3 rounded-full ${
                   item.type === 'success' ? 'bg-green-500' :
@@ -139,11 +163,26 @@ export const DashboardView: React.FC = () => {
         </div>
       </div>
 
-      {/* Upcoming Events with Badges */}
+      {/* Upcoming Events with filter and badges */}
       <div className="bg-white rounded-lg shadow-md p-6">
         <h3 className="text-xl font-semibold mb-4">Upcoming Events</h3>
+        <div className="flex gap-2 mb-3 flex-wrap">
+          {['All', 'Exam', 'Holiday', 'Meeting', 'Event'].map(type => (
+            <button
+              key={type}
+              onClick={() => setEventFilter(type)}
+              className={`px-3 py-1 rounded-full text-sm font-medium ${
+                eventFilter === type
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200 text-gray-700'
+              }`}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {upcomingEvents.map((item, i) => (
+          {filteredEvents.map((item, i) => (
             <div key={i} className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
               <div className="flex items-center gap-2">
                 <p className="font-medium">{item.event}</p>
