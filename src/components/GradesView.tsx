@@ -1,18 +1,100 @@
 import React, { useState } from 'react';
 
+type GradeInfo = { grade: string; count: number; percentage: number };
+
 export const GradesView: React.FC = () => {
   const [selectedGrade, setSelectedGrade] = useState('Grade 9');
   const [selectedSubject, setSelectedSubject] = useState('Mathematics');
 
   const subjects = ['Mathematics', 'English', 'Physics', 'Chemistry', 'Biology', 'History'];
-  
-  const gradeDistribution = [
-    { grade: 'A', count: 45, percentage: 30 },
-    { grade: 'B', count: 60, percentage: 40 },
-    { grade: 'C', count: 30, percentage: 20 },
-    { grade: 'D', count: 12, percentage: 8 },
-    { grade: 'F', count: 3, percentage: 2 }
-  ];
+
+  // Grade distributions for each grade and subject
+  const gradeData: Record<string, Record<string, GradeInfo[]>> = {
+    'Grade 9': {
+      Mathematics: [
+        { grade: 'A', count: 20, percentage: 25 },
+        { grade: 'B', count: 30, percentage: 37.5 },
+        { grade: 'C', count: 15, percentage: 18.75 },
+        { grade: 'D', count: 10, percentage: 12.5 },
+        { grade: 'F', count: 5, percentage: 6.25 },
+      ],
+      English: [
+        { grade: 'A', count: 25, percentage: 31 },
+        { grade: 'B', count: 35, percentage: 44 },
+        { grade: 'C', count: 10, percentage: 12 },
+        { grade: 'D', count: 5, percentage: 6 },
+        { grade: 'F', count: 5, percentage: 6 },
+      ],
+      Physics: [
+        { grade: 'A', count: 10, percentage: 20 },
+        { grade: 'B', count: 20, percentage: 40 },
+        { grade: 'C', count: 10, percentage: 20 },
+        { grade: 'D', count: 5, percentage: 10 },
+        { grade: 'F', count: 5, percentage: 10 },
+      ],
+      Chemistry: [
+        { grade: 'A', count: 15, percentage: 25 },
+        { grade: 'B', count: 25, percentage: 41.6 },
+        { grade: 'C', count: 10, percentage: 16.6 },
+        { grade: 'D', count: 5, percentage: 8.3 },
+        { grade: 'F', count: 5, percentage: 8.3 },
+      ],
+      Biology: [
+        { grade: 'A', count: 18, percentage: 30 },
+        { grade: 'B', count: 22, percentage: 36.6 },
+        { grade: 'C', count: 10, percentage: 16.6 },
+        { grade: 'D', count: 5, percentage: 8.3 },
+        { grade: 'F', count: 5, percentage: 8.3 },
+      ],
+      History: [
+        { grade: 'A', count: 20, percentage: 33 },
+        { grade: 'B', count: 25, percentage: 41 },
+        { grade: 'C', count: 10, percentage: 16 },
+        { grade: 'D', count: 5, percentage: 8 },
+        { grade: 'F', count: 0, percentage: 2 },
+      ],
+    },
+    'Grade 10': {
+      Mathematics: [
+        { grade: 'A', count: 15, percentage: 20 },
+        { grade: 'B', count: 40, percentage: 53 },
+        { grade: 'C', count: 10, percentage: 13 },
+        { grade: 'D', count: 5, percentage: 7 },
+        { grade: 'F', count: 1, percentage: 7 },
+      ],
+      English: [
+        { grade: 'A', count: 20, percentage: 25 },
+        { grade: 'B', count: 35, percentage: 44 },
+        { grade: 'C', count: 10, percentage: 13 },
+        { grade: 'D', count: 5, percentage: 7 },
+        { grade: 'F', count: 5, percentage: 11 },
+      ],
+      // Add other subjects similarly...
+    },
+    'Grade 11': {
+      Mathematics: [
+        { grade: 'A', count: 18, percentage: 28 },
+        { grade: 'B', count: 25, percentage: 39 },
+        { grade: 'C', count: 10, percentage: 15 },
+        { grade: 'D', count: 5, percentage: 10 },
+        { grade: 'F', count: 3, percentage: 8 },
+      ],
+      // Add other subjects...
+    },
+    'Grade 12': {
+      Mathematics: [
+        { grade: 'A', count: 25, percentage: 35 },
+        { grade: 'B', count: 30, percentage: 40 },
+        { grade: 'C', count: 10, percentage: 15 },
+        { grade: 'D', count: 5, percentage: 7 },
+        { grade: 'F', count: 2, percentage: 3 },
+      ],
+      // Add other subjects...
+    },
+  };
+
+  // Get the current distribution based on selected grade and subject
+  const gradeDistribution = gradeData[selectedGrade]?.[selectedSubject] || [];
 
   return (
     <div className="space-y-6">
@@ -40,7 +122,7 @@ export const GradesView: React.FC = () => {
               onChange={(e) => setSelectedSubject(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
             >
-              {subjects.map(subject => (
+              {subjects.map((subject) => (
                 <option key={subject}>{subject}</option>
               ))}
             </select>
@@ -52,21 +134,26 @@ export const GradesView: React.FC = () => {
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold mb-4">Grade Distribution</h3>
           <div className="space-y-4">
-            {gradeDistribution.map(item => (
+            {gradeDistribution.map((item) => (
               <div key={item.grade}>
                 <div className="flex justify-between mb-1">
                   <span className="font-semibold">Grade {item.grade}</span>
                   <span className="text-gray-600">{item.count} students ({item.percentage}%)</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-3">
-                  <div 
+                  <div
                     className={`h-3 rounded-full ${
-                      item.grade === 'A' ? 'bg-green-500' :
-                      item.grade === 'B' ? 'bg-blue-500' :
-                      item.grade === 'C' ? 'bg-yellow-500' :
-                      item.grade === 'D' ? 'bg-orange-500' : 'bg-red-500'
+                      item.grade === 'A'
+                        ? 'bg-green-500'
+                        : item.grade === 'B'
+                        ? 'bg-blue-500'
+                        : item.grade === 'C'
+                        ? 'bg-yellow-500'
+                        : item.grade === 'D'
+                        ? 'bg-orange-500'
+                        : 'bg-red-500'
                     }`}
-                    style={{ width: `${item.percentage * 3}%` }}
+                    style={{ width: `${item.percentage * 2}%` }}
                   />
                 </div>
               </div>
@@ -114,7 +201,7 @@ export const GradesView: React.FC = () => {
               {[
                 { name: 'Midterm Exam', date: 'Nov 10, 2025', type: 'Exam', score: '85%' },
                 { name: 'Chapter 5 Quiz', date: 'Nov 5, 2025', type: 'Quiz', score: '78%' },
-                { name: 'Lab Report', date: 'Oct 28, 2025', type: 'Assignment', score: '92%' }
+                { name: 'Lab Report', date: 'Oct 28, 2025', type: 'Assignment', score: '92%' },
               ].map((assessment, i) => (
                 <tr key={i} className="hover:bg-gray-50">
                   <td className="px-4 py-3">{assessment.name}</td>
