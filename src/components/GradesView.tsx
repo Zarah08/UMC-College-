@@ -16,7 +16,7 @@ export const GradesView: React.FC = () => {
 
   const grades = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
 
-  // Generate random distribution for demo
+  // Generate random distribution
   const generateDistribution = (): GradeInfo[] => {
     const counts = Array.from({ length: grades.length }, () => Math.floor(Math.random() * 15 + 5));
     const total = counts.reduce((a, b) => a + b, 0);
@@ -41,25 +41,49 @@ export const GradesView: React.FC = () => {
     { name: 'Lab Report', date: 'Oct 28, 2025', type: 'Assignment', score: `${Math.floor(65 + Math.random() * 35)}%` }
   ];
 
-  // Full dataset: Grades 9–12, all subjects
-  const gradeData: Record<string, Record<string, { distribution: GradeInfo[]; performance: PerformanceInfo; assessments: Assessment[] }>> = {};
-
-  ['Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'].forEach((gradeLevel) => {
-    gradeData[gradeLevel] = {};
-    subjects.forEach((subject) => {
-      gradeData[gradeLevel][subject] = {
-        distribution: generateDistribution(),
-        performance: generatePerformance(),
-        assessments: generateAssessments(),
-      };
+  // Initialize gradeData in state
+  const [gradeData, setGradeData] = useState(() => {
+    const data: Record<string, Record<string, { distribution: GradeInfo[]; performance: PerformanceInfo; assessments: Assessment[] }>> = {};
+    ['Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'].forEach((gradeLevel) => {
+      data[gradeLevel] = {};
+      subjects.forEach((subject) => {
+        data[gradeLevel][subject] = {
+          distribution: generateDistribution(),
+          performance: generatePerformance(),
+          assessments: generateAssessments(),
+        };
+      });
     });
+    return data;
   });
 
-  // Current data
+  // Current selected data
   const currentData = gradeData[selectedGrade]?.[selectedSubject];
   const gradeDistribution = currentData?.distribution || [];
   const performance = currentData?.performance || { avgGPA: 0, highestScore: 0, passRate: 0 };
   const assessments = currentData?.assessments || [];
+
+  // Function to add a new assessment
+  const handleAddAssessment = () => {
+    const newAssessment: Assessment = {
+      name: 'New Assignment',
+      date: new Date().toLocaleDateString(),
+      type: 'Assignment',
+      score: `${Math.floor(60 + Math.random() * 40)}%`
+    };
+
+    // Update gradeData immutably
+    setGradeData(prev => ({
+      ...prev,
+      [selectedGrade]: {
+        ...prev[selectedGrade],
+        [selectedSubject]: {
+          ...prev[selectedGrade][selectedSubject],
+          assessments: [...prev[selectedGrade][selectedSubject].assessments, newAssessment]
+        }
+      }
+    }));
+  };
 
   return (
     <div className="space-y-6">
@@ -147,7 +171,10 @@ export const GradesView: React.FC = () => {
       <div className="bg-white rounded-lg shadow-md p-6">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-xl font-semibold">Recent Assessments</h3>
-          <button className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">
+          <button
+            onClick={handleAddAssessment}
+            className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600"
+          >
             Add Assessment
           </button>
         </div>
