@@ -7,7 +7,6 @@ A **React + TypeScript + Vite** frontend template for a **School Management Syst
 Check out the live demo here: [dulcet-liger-a451ac.netlify.app](https://dulcet-liger-a451ac.netlify.app/)
 
 ## Features
-
 - Built with **React** and **TypeScript**
 - Fast development with **Vite** and **Hot Module Replacement (HMR)**
 - **ESLint** configured for consistent code quality
