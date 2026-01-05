@@ -1,15 +1,15 @@
 import React, { useState, useMemo } from 'react';
 
-// Define Student type
-interface Student {
+// --- Define Student type ---
+export interface Student {
   id: string;
   name: string;
   grade: string;
   status: string;
 }
 
-// StudentCard component
-const StudentCard: React.FC<{ student: Student; onViewDetails: (s: Student) => void }> = ({ student, onViewDetails }) => {
+// --- StudentCard component ---
+export const StudentCard: React.FC<{ student: Student; onViewDetails: (s: Student) => void }> = ({ student, onViewDetails }) => {
   return (
     <div
       className="border p-4 rounded-lg shadow hover:shadow-lg cursor-pointer"
@@ -22,8 +22,8 @@ const StudentCard: React.FC<{ student: Student; onViewDetails: (s: Student) => v
   );
 };
 
-// StudentModal component
-const StudentModal: React.FC<{ student: Student | null; onClose: () => void }> = ({ student, onClose }) => {
+// --- StudentModal component ---
+export const StudentModal: React.FC<{ student: Student | null; onClose: () => void }> = ({ student, onClose }) => {
   if (!student) return null;
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -44,25 +44,28 @@ const StudentModal: React.FC<{ student: Student | null; onClose: () => void }> =
   );
 };
 
-// Main StudentsView
+// --- Main StudentsView component ---
 export const StudentsView: React.FC = () => {
+  // --- Students state ---
   const [students, setStudents] = useState<Student[]>([
     { id: '1', name: 'Alice', grade: 'Grade 9', status: 'present' },
     { id: '2', name: 'Bob', grade: 'Grade 10', status: 'absent' },
+    { id: '3', name: 'Charlie', grade: 'Grade 11', status: 'late' },
   ]);
 
+  // --- Modal & filters state ---
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [gradeFilter, setGradeFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
   const [isAdding, setIsAdding] = useState(false);
 
-  // Local state for new student inputs
+  // --- New student form state ---
   const [newName, setNewName] = useState('');
   const [newGrade, setNewGrade] = useState('');
   const [newStatus, setNewStatus] = useState('');
 
-  // Filtered students
+  // --- Filtered students ---
   const filteredStudents = useMemo(() => {
     return students.filter(student => {
       const matchesSearch = student.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -72,7 +75,7 @@ export const StudentsView: React.FC = () => {
     });
   }, [students, searchTerm, gradeFilter, statusFilter]);
 
-  // Save new student
+  // --- Save new student ---
   const handleSaveNewStudent = () => {
     if (!newName || !newGrade || !newStatus) {
       alert('Please fill all fields');
@@ -146,12 +149,19 @@ export const StudentsView: React.FC = () => {
       {/* Student cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {filteredStudents.map(student => (
-          <StudentCard key={student.id} student={student} onViewDetails={setSelectedStudent} />
+          <StudentCard
+            key={student.id}
+            student={student}
+            onViewDetails={setSelectedStudent}
+          />
         ))}
       </div>
 
       {/* View student modal */}
-      <StudentModal student={selectedStudent} onClose={() => setSelectedStudent(null)} />
+      <StudentModal
+        student={selectedStudent}
+        onClose={() => setSelectedStudent(null)}
+      />
 
       {/* Add new student modal */}
       {isAdding && (
