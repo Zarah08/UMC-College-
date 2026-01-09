@@ -38,7 +38,7 @@ Project Structure
 school-management-system/
 │
 ├── public/                  # Static assets
-├── src/                     # Source files
+├── src/                     # Sou
 │   ├── components/          
 │   ├── pages/               
 │   ├── App.tsx               
