@@ -44,7 +44,7 @@ school-management-system/
 │   ├── App.tsx              # Main App component
 │   └── main.tsx             # Entry point
 ├── package.json             # Project metadata and dependencies
-├── tsconfig.json            # TypeScript 
+├── tsconfig.json            # TypeSc
 ├── tailwind.config.ts      
 └── vite.config.ts           
 
