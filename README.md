@@ -42,7 +42,7 @@ school-management-system/
 │   ├── components/          # Reusable React components
 │   ├── pages/               # Page components
 │   ├── App.tsx              # Main App component
-│   └── main.tsx             # Entry 
+│   └── main.tsx             
 ├── package.json             
 ├── tsconfig.json            
 ├── tailwind.config.ts      
