@@ -43,7 +43,7 @@ school-management-system/
 │   ├── pages/               # Page components
 │   ├── App.tsx              # Main App component
 │   └── main.tsx             # Entry point
-├── package.json             # Proj
+├── package.json             
 ├── tsconfig.json            
 ├── tailwind.config.ts      
 └── vite.config.ts           
