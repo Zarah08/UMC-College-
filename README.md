@@ -45,7 +45,7 @@ school-management-system/
 │   └── main.tsx             # Entry point
 ├── package.json             # Project metadata and dependencies
 ├── tsconfig.json            # TypeScript configuration
-├── tailwind.config.ts       # Tailwind 
+├── tailwind.config.ts      
 └── vite.config.ts           
 
 ### Contributing
