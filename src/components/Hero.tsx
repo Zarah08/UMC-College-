@@ -48,9 +48,10 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
             >
               Get Started
             </button>
-            <button className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-3 rounded-lg font-semibold transition-colors">
-              Watch Demo
-            </button>
+            <button
+    onClick={() => window.location.href = "/login"}
+    className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-3 rounded-lg font-semibold transition-colors"
+  >LogIn </button>
           </motion.div>
         </motion.div>
       </div>
