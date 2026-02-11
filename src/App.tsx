@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Student } from "@/components/AddStudent";
+import Login from "./pages/LogIn";
+import AdminDashboard from "./pages/AdminDashboard";
 import AddStudentPage from "./pages/AddStudentPage";
 import StudentDirectoryPage from "./pages/StudentDirectoryPage";
 import Index from "./pages/Index";
@@ -24,6 +26,8 @@ const App = () => {
           <Sonner />
           <BrowserRouter>
             <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/" element={<Index students={students} setStudents={setStudents} />} />
               <Route path="/students/add" element={<AddStudentPage students={students} setStudents={setStudents} />} />
               <Route path="/students" element={<StudentDirectoryPage students={students} />} />
