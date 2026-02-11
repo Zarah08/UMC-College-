@@ -55,4 +55,4 @@ Push to the branch (git push origin feature/YourFeature)
 Open a Pull Request
 
 ### License
-This project is open source and available under the MIT License
+This project is open source and available under the MIT License# UMC-College-
