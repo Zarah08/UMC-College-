@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Student } from "@/components/AddStudent";
 import Login from "./pages/LogIn";
+import Signup from "./pages/SignUp";
 import AdminDashboard from "./pages/AdminDashboard";
 import AddStudentPage from "./pages/AddStudentPage";
 import StudentDirectoryPage from "./pages/StudentDirectoryPage";
@@ -27,6 +28,7 @@ const App = () => {
           <BrowserRouter>
             <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/" element={<Index students={students} setStudents={setStudents} />} />
               <Route path="/students/add" element={<AddStudentPage students={students} setStudents={setStudents} />} />
