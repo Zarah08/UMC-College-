@@ -2,27 +2,21 @@ import { Teacher } from '../types';
 import { teacherImages } from '../data/mockData';
 
 const teacherNames = [
-  'Dr. Sarah Mitchell',
-  'Prof. James Anderson',
-  'Ms. Emily Chen',
-  'Mr. David Thompson',
-  'Dr. Maria Rodriguez',
-  'Prof. Robert Wilson',
-  'Ms. Jennifer Taylor',
-  'Mr. Michael Brown',
-  'Dr. Lisa Johnson'
+  'Dr. Aisha Khan',
+  'Prof. Fatima Ali',
+  'Ms. Noor Rahman',
+  'Dr. Sara Ahmed',
+  'Prof. Huda Yusuf',
+  'Ms. Zainab Malik',
+  'Dr. Mariam Siddiqui',
+  'Ms. Amira Hassan',
+  'Prof. Sumaiya Qureshi'
 ];
 
+
 const subjects = [
-  'Mathematics',
-  'English Literature',
-  'Physics',
-  'Chemistry',
-  'Biology',
-  'History',
-  'Computer Science',
-  'Art & Design',
-  'Physical Education'
+   'Quran', 'Tajweed', 'Arabic', 'Tafsir', 'Fiqh',
+    'Tauheed', 'Seerah', 'Daawah', 'Quran '
 ];
 
 export const generateTeachers = (): Teacher[] => {

@@ -9,9 +9,8 @@ export const GradesView: React.FC = () => {
   const [selectedSubject, setSelectedSubject] = useState('Mathematics');
 
   const subjects = [
-    'Mathematics', 'English', 'Kiswahili', 'Physics', 'Chemistry',
-    'Biology', 'History', 'CRE', 'Geography', 'Computer Studies',
-    'Business', 'Agriculture', 'French'
+    'Quran', 'Tajweed', 'Arabic', 'Tafsir', 'Fiqh',
+    'Tauheed', 'Seerah'
   ];
 
   const grades = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];

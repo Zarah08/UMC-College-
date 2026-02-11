@@ -1,11 +1,55 @@
 import { Student } from '../types';
 import { studentImages } from '../data/mockData';
 
-const firstNames = ['Emma', 'Liam', 'Olivia', 'Noah', 'Ava', 'Ethan', 'Sophia', 'Mason', 'Isabella', 'William', 'Mia', 'James', 'Charlotte', 'Benjamin', 'Amelia', 'Lucas', 'Harper', 'Henry', 'Evelyn', 'Alexander', 'Abigail', 'Michael', 'Emily', 'Daniel', 'Elizabeth', 'Matthew', 'Sofia', 'Jackson', 'Avery', 'Sebastian', 'Ella', 'David', 'Scarlett', 'Joseph', 'Grace', 'Samuel', 'Chloe', 'John', 'Victoria', 'Owen', 'Riley', 'Dylan', 'Aria', 'Luke', 'Lily', 'Gabriel', 'Aubrey', 'Anthony', 'Zoey', 'Isaac'];
+const firstNames = [
+  'Aisha', 'Fatima', 'Zainab', 'Hauwa', 'Khadija',
+  'Maryam', 'Safiya', 'Asma’u', 'Halima', 'Hadiza',
+  'Rukayya', 'Amina', 'Jamila', 'Hajara', 'Nafisa',
+  'Bilkisu', 'Lubna', 'Rahma', 'Fadila', 'Zulaiha',
+  'Sumayya', 'Maimuna', 'Habiba', 'Rabi', 'Karima',
+  'Sadiya', 'Yasmin', 'Munira', 'Zahra', 'Shamsiyya',
+  'Fa’iza', 'Sa’adatu', 'Hussaina', 'Rashida', 'Sakina',
+  'Hafsat', 'Mariya', 'Saliha', 'Batula', 'Kaltuma',
+  'Zuwaira', 'Nusaiba', 'Afnan', 'Zahrah', 'Raliya',
+  'Hindatu', 'Talatu', 'Fati', 'Auwaliyya', 'Ladidi'
+];
 
-const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez', 'Hernandez', 'Lopez', 'Gonzalez', 'Wilson', 'Anderson', 'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin', 'Lee', 'Perez', 'Thompson', 'White', 'Harris', 'Sanchez', 'Clark', 'Ramirez', 'Lewis', 'Robinson', 'Walker', 'Young', 'Allen', 'King', 'Wright', 'Scott', 'Torres', 'Nguyen', 'Hill', 'Flores', 'Green', 'Adams', 'Nelson', 'Baker', 'Hall', 'Rivera', 'Campbell', 'Mitchell', 'Carter', 'Roberts'];
+const lastNames = [
+  'Abubakar', 'Abdullahi', 'Abdulrahman', 'Abdulaziz', 'Abdulkarim',
+  'Abdulmalik', 'Abdulsalam', 'Abdulhamid', 'Abdullateef', 'Abdullahi',
+  'Ahmad', 'Ahmed', 'Ali', 'Hassan', 'Hussain',
+  'Ibrahim', 'Ismail', 'Mahmud', 'Mansur', 'Mustafa',
+  'Suleiman', 'Sulaiman', 'Umar', 'Usman', 'Yahya',
+  'Yusuf', 'Zakariyya', 'Sharif', 'Nasir', 'Salim',
+  'Tahir', 'Jafar', 'Hamza', 'Bilal', 'Khalid',
+  'Farouk', 'Rashid', 'Saeed', 'Nabil', 'Karim',
+  'Latif', 'Munir', 'Qasim', 'Samir', 'Zubair',
+  'Habib', 'Majid', 'Anwar', 'Faruq', 'Bashir'
+];
 
-const grades = ['Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'];
+
+const grades = [
+  'Quran Level 1',
+  'Quran Level 2',
+  'Quran Level 3',
+  'Quran Level 4',
+  'Quran Level 5',
+  'Quran Level 6',
+  'Islamiya Class 1',
+  'Islamiya Class 2',
+  'Islamiya Class 3',
+  'Islamiya Class 4',
+  'Islamiya Class 5',
+  'Tajweed Class 1',
+  'Tajweed Class 2',
+  'Tajweed Class 3',
+  'Arabic Class 1',
+  'Arabic Class 2',
+  'Arabic Class 3',
+  'Friday Halqah'
+  
+];
+
 const statuses: ('present' | 'absent' | 'late')[] = ['present', 'present', 'present', 'present', 'late', 'absent'];
 
 export const generateStudents = (count: number): Student[] => {

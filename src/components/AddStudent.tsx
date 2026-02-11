@@ -46,6 +46,8 @@ export const AddStudent: React.FC<AddStudentProps> = ({ onAddStudent }) => {
         <input type="text" name="grade" value={student.grade} onChange={handleChange} placeholder="Grade/Class" className="border px-4 py-2 rounded-lg" />
         <input type="email" name="email" value={student.email} onChange={handleChange} placeholder="Email" className="border px-4 py-2 rounded-lg" />
         <button type="submit" className="bg-blue-900 text-white py-2 rounded-lg hover:bg-blue-800 transition">Add Student</button>
+        <button type="submit" className="bg-blue-900 text-white py-2 rounded-lg hover:bg-blue-800 transition" onClick={() => window.open('https://meet.jit.si/islamiya-class-1', '_blank')}>Join Class</button>
+
       </form>
     </div>
   );

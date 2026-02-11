@@ -51,10 +51,10 @@ export const DashboardView: React.FC = () => {
   ];
 
   const allUpcomingEvents = [
-    { event: 'Parent-Teacher Conference', date: 'Nov 20, 2025', type: 'Meeting' },
-    { event: 'Final Exams Begin', date: 'Dec 1, 2025', type: 'Exam' },
-    { event: 'Winter Break', date: 'Dec 15, 2025', type: 'Holiday' },
-    { event: 'Science Fair', date: 'Jan 10, 2026', type: 'Event' },
+    { event: 'Sadaqa Team Meeting ', date: 'Feb 10, 2026', type: 'Meeting' },
+    { event: 'Final Exams Begin', date: 'April 20, 2026', type: 'Exam' },
+    { event: 'Ramadan Class Schedules', date: 'Feb 17, 2065', type: 'Holiday' },
+    { event: 'Question and Answer with Malama ', date: 'Jan 10, 2026', type: 'Event' },
   ];
 
   const [activityFilter, setActivityFilter] = useState<string>('All');
@@ -80,7 +80,7 @@ export const DashboardView: React.FC = () => {
 
   return (
     <div className="space-y-8 p-6 bg-gray-50 min-h-screen">
-      <h2 className="text-3xl font-bold text-gray-900">Dashboard Overview</h2>
+      <h2 className="text-3xl font-bold text-gray-900">UMC Dashboard Overview</h2>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

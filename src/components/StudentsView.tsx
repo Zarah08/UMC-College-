@@ -25,10 +25,18 @@ export const StudentsView: React.FC<StudentsViewProps> = ({ students }) => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
+        <div className="flex justify-between">
+       
+        </div>
         <h2 className="text-3xl font-bold text-gray-900">Student Directory</h2>
         <button className="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600">
           Add New Student
         </button>
+        <button 
+       className="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600" onClick={() => window.open('https://meet.jit.si/islamiya-class-1', '_blank')}>
+  Join Class
+</button>
+
       </div>
 
       <div className="bg-white rounded-lg shadow-md p-6">

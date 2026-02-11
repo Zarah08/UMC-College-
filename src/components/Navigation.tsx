@@ -14,7 +14,8 @@ export const Navigation: React.FC<NavigationProps> = ({ activeView, onViewChange
     { id: 'teachers', label: 'Teachers' },
     { id: 'attendance', label: 'Attendance' },
     { id: 'grades', label: 'Grades' },
-    { id: 'parent', label: 'Parent Portal' }
+    { id: 'classes', label: 'Explore Classes' },
+    { id: 'parent', label: 'Track Payment' }
   ];
 
   return (
@@ -22,7 +23,7 @@ export const Navigation: React.FC<NavigationProps> = ({ activeView, onViewChange
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
-            <h1 className="text-2xl font-bold">Hesbon's School Manager</h1>
+            <h1 className="text-2xl font-bold">Ummuakaltume College</h1>
             <div className="hidden md:flex gap-1">
               {navItems.map(item => (
                 <button
