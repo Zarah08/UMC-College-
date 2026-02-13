@@ -88,7 +88,9 @@ export const DashboardView: React.FC = () => {
   return (
     
     <div className="space-y-8 p-6 bg-gray-50 min-h-screen">
-      <Navigation />
+      <Navigation activeView={''} onViewChange={function (view: string): void {
+        throw new Error('Function not implemented.');
+      } } />
       <h2 className="text-3xl font-bold text-gray-900">UMC Dashboard Overview</h2>
       
       {/* Stats Cards */}
