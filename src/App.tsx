@@ -13,6 +13,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { DashboardView } from "./components/DashboardView";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,8 @@ const App = () => {
               <Route path="/students/add" element={<AddStudentPage students={students} setStudents={setStudents} />} />
               <Route path="/students" element={<StudentDirectoryPage students={students} />} />
               <Route path="*" element={<NotFound />} />
+              <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<DashboardView />} />
             </Routes>
           </BrowserRouter>
         </TooltipProvider>
