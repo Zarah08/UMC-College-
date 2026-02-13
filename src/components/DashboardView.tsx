@@ -36,26 +36,29 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, trend, bgColor, icon,
 
 export const DashboardView: React.FC = () => {
   const attendanceData = [
-    { month: 'Jan', attendance: 92 },
-    { month: 'Feb', attendance: 94 },
-    { month: 'Mar', attendance: 95 },
-    { month: 'Apr', attendance: 93 },
-    { month: 'May', attendance: 96 },
+    { month: 'Safar', attendance: 65 },
+    { month: 'Rabi I', attendance: 70 },
+    { month: 'Rabi II', attendance: 75 },
+    { month: 'Jumada I', attendance: 80 },
+    { month: 'Jumada II', attendance: 85 },
   ];
+  
 
   const allRecentActivity = [
-    { action: 'New student enrolled', time: '2 hours ago', type: 'success' },
-    { action: 'Grade report generated', time: '4 hours ago', type: 'info' },
-    { action: 'Parent meeting scheduled', time: '1 day ago', type: 'warning' },
-    { action: 'Attendance marked for Grade 10', time: '2 days ago', type: 'success' },
+    { action: 'New Taliba enrolled in Tahfiz', time: '2 hours ago', type: 'success' },
+    { action: 'Juz 30 memorization completed', time: '5 hours ago', type: 'success' },
+    { action: 'Tafsir session uploaded', time: '1 day ago', type: 'info' },
+    { action: 'Fee payment recorded', time: '2 days ago', type: 'warning' },
   ];
+  
 
   const allUpcomingEvents = [
-    { event: 'Sadaqa Team Meeting ', date: 'Feb 10, 2026', type: 'Meeting' },
-    { event: 'Final Exams Begin', date: 'April 20, 2026', type: 'Exam' },
-    { event: 'Ramadan Class Schedules', date: 'Feb 17, 2065', type: 'Holiday' },
-    { event: 'Question and Answer with Malama ', date: 'Jan 10, 2026', type: 'Event' },
+    { event: 'Ramadan Special Tafsir', date: 'March 2, 2026', type: 'Event' },
+    { event: 'Jumu’ah Youth Lecture', date: 'Feb 20, 2026', type: 'Meeting' },
+    { event: 'End of Term Imtihan (Exams)', date: 'April 20, 2026', type: 'Exam' },
+    { event: 'Eid-ul-Fitr Break', date: 'April 10, 2026', type: 'Holiday' },
   ];
+  
 
   const [activityFilter, setActivityFilter] = useState<string>('All');
   const [eventFilter, setEventFilter] = useState<string>('All');
@@ -84,52 +87,51 @@ export const DashboardView: React.FC = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard
-          title="Total Students"
-          value={1247}
-          trend="+12% from last month"
-          bgColor="bg-blue-500"
-          link="/students"
-          icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>}
-        />
-        <StatCard
-          title="Total Teachers"
-          value={87}
-          trend="+5 new this semester"
-          bgColor="bg-orange-500"
-          link="/teachers"
-          icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>}
-        />
-        <StatCard
-          title="Avg Attendance"
-          value="94.5%"
-          trend="+2.3% this week"
-          bgColor="bg-green-500"
-          link="/attendance"
-          icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>}
-        />
-        <StatCard
-          title="Active Classes"
-          value={42}
-          bgColor="bg-purple-500"
-          link="/classes"
-          icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-          </svg>}
-        />
-      </div>
+  <StatCard
+    title="Total Talibai"
+    value={447}
+    trend="+8 new enrollments"
+    bgColor="bg-emerald-600"
+    link="/students"
+    icon={<span className="text-xl">📖</span>}
+  />
+
+  <StatCard
+    title="Total Ustadh/Ustadhah"
+    value={15}
+    trend="2 new this term"
+    bgColor="bg-amber-500"
+    link="/teachers"
+    icon={<span className="text-xl">🧕</span>}
+  />
+
+  <StatCard
+    title="Hifz Completion Rate"
+    value="78%"
+    trend="+5% this month"
+    bgColor="bg-green-600"
+    link="/hifz"
+    icon={<span className="text-xl">🕌</span>}
+  />
+
+  <StatCard
+    title="Active Qur’an Halqahs"
+    value={18}
+    bgColor="bg-purple-600"
+    link="/classes"
+    icon={<span className="text-xl">📚</span>}
+  />
+</div>
+
 
       {/* Charts and Recent Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Attendance Chart */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }} className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-xl font-semibold mb-4">Attendance Trend</h3>
+        <h3 className="text-xl font-semibold mb-4">
+  Hifz & Memorization Progress
+</h3>
+
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={attendanceData}>
               <XAxis dataKey="month" />

@@ -7,7 +7,7 @@ import { StudentsView } from './StudentsView';
 import { TeachersView } from './TeachersView';
 import { AttendanceView } from './AttendanceView';
 import { GradesView } from './GradesView';
-import { ParentPortalView } from './ParentPortalView';
+import { ParentPortalView } from './Payment';
 import { generateStudents } from '../utils/generateStudents';
 import { generateTeachers } from '../utils/generateTeachers';
 
