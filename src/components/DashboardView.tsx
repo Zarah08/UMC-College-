@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { motion } from 'framer-motion'; // Import Framer Motion
 // import React from "react";
-import {Navigation} from "./Navigation"; // adjust the path if needed
-import {Footer} from "./Footer";         // adjust the path if needed
-
-
 // Reusable StatCard
 interface StatCardProps {
   title: string;
@@ -86,11 +82,7 @@ export const DashboardView: React.FC = () => {
   };
 
   return (
-    
     <div className="space-y-8 p-6 bg-gray-50 min-h-screen">
-      <Navigation activeView={''} onViewChange={function (view: string): void {
-        throw new Error('Function not implemented.');
-      } } />
       <h2 className="text-3xl font-bold text-gray-900">UMC Dashboard Overview</h2>
       
       {/* Stats Cards */}
@@ -229,7 +221,6 @@ export const DashboardView: React.FC = () => {
           ))}
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

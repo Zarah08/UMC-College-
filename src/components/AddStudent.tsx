@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-interface Student {
+export interface Student {
   name: string;
   age: number;
   grade: string;
