@@ -30,7 +30,7 @@ export const StudentsView: React.FC<StudentsViewProps> = ({ students }) => {
         </div>
         <h2 className="text-3xl font-bold text-gray-900">Student Directory</h2>
         <button className="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600">
-          Add New Student
+        Add New Student
         </button>
         <button 
        className="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600" onClick={() => window.open('https://meet.jit.si/islamiya-class-1', '_blank')}>
